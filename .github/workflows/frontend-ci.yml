@@ -1,45 +1,40 @@
-name: Backend CI with SonarCloud
+name: Frontend CI with SonarCloud
 
 on:
   push:
     branches:
       - main
-      - feature/backend-setup
+      - feature/frontend-setup
   pull_request:
     branches:
       - main
 
 jobs:
-  backend-ci:
+  frontend-ci:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          distribution: temurin
-          java-version: '21'
+          node-version: 18
+          cache: npm
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('demo/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
+      - name: Install dependencies
+        run: npm install
 
-      - name: Build & SonarCloud analysis
+      - name: Build frontend
+        run: npm run build
+
+      - name: SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          cd demo
-          mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=sakthi-meera-007_ideasync-backend \
-            -Dsonar.organization=sakthi-meera-007 \
-            -Dsonar.host.url=https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.projectKey=sakthi-meera-007_ideasync-frontend
+            -Dsonar.organization=sakthi-meera-007
+            -Dsonar.sources=src
