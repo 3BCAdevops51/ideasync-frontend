@@ -99,6 +99,7 @@ Metrics checked:
 This analysis runs automatically in the CI pipeline.
 
 ---
+<img width="779" height="512" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/2a47841a-2cdb-431d-9ec8-0c3bd4fa4a93" />
 
 ### 5️⃣ Docker Image Publishing
 
@@ -111,6 +112,7 @@ dockerhub-username/ideasync-frontend:latest
 ```
 
 ---
+<img width="1366" height="768" alt="Screenshot (54)" src="https://github.com/user-attachments/assets/a083c87b-0bc9-4819-acfe-f77f5adc3dd9" />
 
 ## 🔐 GitHub Secrets Used
 
@@ -144,6 +146,22 @@ npm run build
 
 ---
 
+🌐 Live Deployment
+
+The frontend application is deployed using Vercel.
+
+Live URL:
+
+https://ideasync-frontend.vercel.app/
+
+Deployment Features:
+
+Automatic deployment on every push to main branch
+
+Global CDN delivery
+
+Fast static hosting
+
 ## 📦 Deployment Architecture
 
 ```
@@ -158,6 +176,7 @@ SonarCloud Code Quality Check
 Docker Image Build
        ↓
 Docker Hub Push
+
 ```
 
 ---
