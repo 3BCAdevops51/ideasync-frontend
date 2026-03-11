@@ -1,128 +1,187 @@
 # IdeaSync Frontend
 
-A modern React-based frontend application for capturing, organizing, and tracking ideas. Built with React 18, TypeScript, and Vite.
+Frontend application for **IdeaSync**, built with a modern JavaScript framework and containerized using Docker.
+This project also includes a complete **CI pipeline with GitHub Actions**, **code quality analysis**, and **Docker image publishing**.
 
-#summary
+---
 
-The IdeaSync Frontend was successfully converted from a traditional HTML/CSS/JavaScript project into a modern React + TypeScript application. The project follows industry-level practices including:
+## 🚀 Tech Stack
 
-Separate frontend repository management
+* Frontend Framework: React / Vite
+* Containerization: Docker
+* CI/CD: GitHub Actions
+* Code Quality: SonarCloud
+* Web Server: Nginx
 
-Automated CI pipeline using GitHub Actions
+---
 
-Code quality analysis through SonarCloud
+## 📂 Project Structure
 
-Successful deployment on Vercel with continuous delivery
+```
+ideasync-frontend
+│
+├── src/                 # Application source code
+├── public/              # Static assets
+├── Dockerfile           # Docker configuration for containerizing the app
+├── package.json         # Node dependencies
+└── .github/workflows/
+       frontend-ci.yml   # CI pipeline configuration
+```
 
-Responsive UI with real-time backend API integration
+---
 
-This ensures clean code, scalable development, and reliable deployment.
+## ⚙️ Features Implemented
 
-## Features
+### 1️⃣ Frontend Application
 
-- **Create Ideas**: Add new ideas with title, description, category, and status
-- **Organize**: Categorize ideas (General, Feature, Bug Fix, Improvement)
-- **Track Status**: Monitor idea progress (New, In Progress, Completed, Archived)
-- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
-- **Real-time Updates**: Connected to backend API for persistent data storage
+* Built using modern JavaScript framework
+* Modular component structure
+* Responsive UI
 
-## Tech Stack
+---
 
-- **React 18**: Modern UI library with hooks
-- **TypeScript**: Type-safe development
-- **Vite**: Next-generation frontend tooling
-- **CSS3**: Responsive styling with gradients and animations
-- **Fetch API**: Built-in HTTP client for API communication
+### 2️⃣ Docker Containerization
 
-## Getting Started
+The application is containerized using **Docker**.
 
-### Prerequisites
+**Dockerfile Overview**
 
-- Node.js 16+ installed
-- Backend API running on `http://localhost:8000`
+* Multi-stage build
+* Node.js used for building the application
+* Nginx used to serve the static build files
 
-### Installation
+Build Image:
 
-1. Install dependencies:
+```bash
+docker build -t ideasync-frontend .
+```
+
+Run Container:
+
+```bash
+docker run -p 80:80 ideasync-frontend
+```
+
+---
+
+### 3️⃣ CI Pipeline with GitHub Actions
+
+A CI workflow is configured to automatically run when code is pushed.
+
+Pipeline Steps:
+
+1. Checkout source code
+2. Install dependencies
+3. Build frontend project
+4. Run SonarCloud code analysis
+5. Build Docker image
+6. Push Docker image to Docker Hub
+
+Workflow File:
+
+```
+.github/workflows/frontend-ci.yml
+```
+
+---
+
+### 4️⃣ Code Quality Analysis
+
+Code quality is analyzed using **SonarCloud**.
+
+Metrics checked:
+
+* Bugs
+* Vulnerabilities
+* Code Smells
+* Maintainability
+
+This analysis runs automatically in the CI pipeline.
+
+---
+<img width="779" height="512" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/2a47841a-2cdb-431d-9ec8-0c3bd4fa4a93" />
+
+### 5️⃣ Docker Image Publishing
+
+After successful build, the pipeline automatically pushes the Docker image to Docker Hub.
+
+Example Image:
+
+```
+dockerhub-username/ideasync-frontend:latest
+```
+
+---
+<img width="1366" height="768" alt="Screenshot (54)" src="https://github.com/user-attachments/assets/a083c87b-0bc9-4819-acfe-f77f5adc3dd9" />
+
+## 🔐 GitHub Secrets Used
+
+The CI pipeline uses secure secrets stored in GitHub:
+
+* `DOCKER_USERNAME`
+* `DOCKER_PASSWORD`
+* `SONAR_TOKEN`
+
+---
+
+## ▶️ Running Locally
+
+Install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Start the development server:
+Start development server:
+
 ```bash
 npm run dev
 ```
 
-The app will open at `http://localhost:5173`
+Build project:
 
-### Building for Production
-
-Build the optimized production bundle:
 ```bash
 npm run build
 ```
 
-Preview the production build:
-```bash
-npm run preview
+---
+
+🌐 Live Deployment
+
+The frontend application is deployed using Vercel.
+
+Live URL:
+
+https://ideasync-frontend.vercel.app/
+
+Deployment Features:
+
+Automatic deployment on every push to main branch
+
+Global CDN delivery
+
+Fast static hosting
+
+## 📦 Deployment Architecture
+
+```
+Developer Push
+       ↓
+GitHub Repository
+       ↓
+GitHub Actions CI Pipeline
+       ↓
+SonarCloud Code Quality Check
+       ↓
+Docker Image Build
+       ↓
+Docker Hub Push
+
 ```
 
-## Project Structure
+---
 
-```
-src/
-├── main.tsx          # React entry point
-├── App.tsx           # Main app component
-├── App.css           # App styling
-└── index.css         # Global styles
+## 👩‍💻 Author
 
-index.html            # HTML template
-vite.config.ts        # Vite configuration
-tsconfig.json         # TypeScript configuration
-```
-
-## API Integration
-
-The app connects to a backend API with the following endpoints:
-
-- `GET /api/ideas` - Fetch all ideas
-- `POST /api/ideas` - Create a new idea
-- `DELETE /api/ideas/:id` - Delete an idea
-
-The API proxy is configured in `vite.config.ts` to forward requests from `/api` to the backend server.
-
-## Development
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-
-### Features Implemented
-
-- Fetch and display ideas from backend
-- Create new ideas with form validation
-- Delete ideas with confirmation
-- Real-time error handling
-- Loading states
-- Responsive grid layout
-- Status and category badges
-- Sticky sidebar form on desktop
-
-## Styling
-
-The app uses modern CSS with:
-- CSS Grid for layouts
-- Flexbox for components
-- Gradient backgrounds
-- Smooth transitions and animations
-- Mobile-first responsive design
-- Dark/light mode support
-
-## Notes
-
-- The backend API server should be running and accessible at `http://localhost:8000`
-- All API requests are proxied through Vite for development
-- The app maintains the same functionality as the original HTML version
-- State management is handled through React hooks (useState, useEffect)
+Sakthi Meera
+DevOps / Cloud Enthusiast
