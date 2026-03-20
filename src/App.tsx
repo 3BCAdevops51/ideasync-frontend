@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const API = 'http://localhost:8080/ideas'
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface Idea {
   id: number
@@ -54,7 +54,7 @@ export default function App() {
 
   async function loadIdeas() {
     try {
-      const res = await fetch(API)
+      const res = await fetch(`${API_URL}/api/ideas`)
       if (!res.ok) throw new Error('Failed to load ideas')
       const data: Idea[] = await res.json()
       // MEMBER sees only own ideas
@@ -71,7 +71,7 @@ export default function App() {
   async function createIdea() {
     if (role !== 'MEMBER' || !username) return
 
-    await fetch(API, {
+    await fetch(`${API_URL}/api/ideas`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description, submittedBy: username })
@@ -82,12 +82,12 @@ export default function App() {
   }
 
   async function updateStatus(id: number, status: string) {
-    await fetch(`${API}/${id}/status?status=${status}`, { method: 'PUT' })
+    await fetch(`${API_URL}/api/ideas/${id}/status?status=${status}`, { method: 'PUT' })
     loadIdeas()
   }
 
   async function deleteIdea(id: number) {
-    await fetch(`${API}/${id}`, { method: 'DELETE' })
+    await fetch(`${API_URL}/api/ideas/${id}`, { method: 'DELETE' })
     loadIdeas()
   }
 
