@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Idea {
@@ -54,7 +55,7 @@ export default function App() {
 
   async function loadIdeas() {
     try {
-      const res = await fetch(`${API_URL}/api/ideas`)
+      const res = await fetch(`${API_URL}/ideas`)
       if (!res.ok) throw new Error('Failed to load ideas')
       const data: Idea[] = await res.json()
       // MEMBER sees only own ideas
@@ -71,7 +72,7 @@ export default function App() {
   async function createIdea() {
     if (role !== 'MEMBER' || !username) return
 
-    await fetch(`${API_URL}/api/ideas`, {
+    await fetch(`${API_URL}/ideas`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description, submittedBy: username })
@@ -82,12 +83,12 @@ export default function App() {
   }
 
   async function updateStatus(id: number, status: string) {
-    await fetch(`${API_URL}/api/ideas/${id}/status?status=${status}`, { method: 'PUT' })
+    await fetch(`${API_URL}/ideas/${id}/status?status=${status}`, { method: 'PUT' })
     loadIdeas()
   }
 
   async function deleteIdea(id: number) {
-    await fetch(`${API_URL}/api/ideas/${id}`, { method: 'DELETE' })
+    await fetch(`${API_URL}/ideas/${id}`, { method: 'DELETE' })
     loadIdeas()
   }
 
