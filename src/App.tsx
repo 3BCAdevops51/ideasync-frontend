@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 interface Idea {
@@ -23,6 +22,9 @@ export default function App() {
   const [ideas, setIdeas] = useState<Idea[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+
+  // ✅ ADDED: theme state
+  const [darkMode, setDarkMode] = useState(false)
 
   useEffect(() => {
     if (username && role) loadIdeas()
@@ -58,7 +60,6 @@ export default function App() {
       const res = await fetch(`${API_URL}/ideas`)
       if (!res.ok) throw new Error('Failed to load ideas')
       const data: Idea[] = await res.json()
-      // MEMBER sees only own ideas
       if (role === 'MEMBER' && username) {
         setIdeas(data.filter(i => i.submittedBy === username))
       } else {
@@ -125,21 +126,30 @@ export default function App() {
       </div>
     )
   }
-//new command
+
   // Logged in view
   return (
-    <div>
+    // ✅ ADDED: wrapper class for theme
+    <div className={darkMode ? "app dark" : "app light"}>
       <div className="header">
         <h1>IdeaSync</h1>
         <div className="user-info">
           <span>Logged in as: <b>{username}</b></span>
           <span>Role: <b>{role}</b></span>
+
+          {/* ✅ ADDED: theme toggle button */}
+          <button
+            className="btn"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+
           <button className="btn logout" onClick={logout}>Logout</button>
         </div>
       </div>
 
       <div className="container">
-        {/* MEMBER ONLY */}
         {role === 'MEMBER' && (
           <div id="submitSectionWrapper">
             <h2 id="submitSectionTitle">Submit New Idea</h2>
