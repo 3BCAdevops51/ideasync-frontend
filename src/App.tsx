@@ -201,4 +201,5 @@ export default function App() {
   //new comment line to test commit
   //comment to test coverage
   //comment line
+  //comment for sonar
 }
