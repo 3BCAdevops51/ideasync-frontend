@@ -290,7 +290,6 @@ tr:hover {
   align-items: center;
 }
 
-
 /* Responsive Design */
 @media (max-width: 968px) {
   .container {
@@ -351,4 +350,47 @@ tr:hover {
   .idea-card {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   }
+}
+
+/* ===================== */
+/* THEME TOGGLE (ADDED) */
+/* ===================== */
+
+.app.light {
+  background-color: #ccddd9;
+  color: #111827;
+}
+
+.app.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.app.dark .card {
+  background: #1f2937;
+  color: #ffffff;
+}
+
+.app.dark .header {
+  background: #0f766e;
+}
+
+.app.dark input,
+.app.dark select,
+.app.dark textarea {
+  background: #374151;
+  color: #ffffff;
+  border: 1px solid #4b5563;
+}
+
+.app.dark table {
+  color: #ffffff;
+}
+
+.app.dark thead {
+  background: #1f2937;
+}
+
+.app.dark tr:hover {
+  background: #374151;
 }
