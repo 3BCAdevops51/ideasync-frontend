@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const API_URL = 'https://ideasync-backend-cvdehcfqfye9brdq.centralindia-01.azurewebsites.net';
 
 interface Idea {
   id: number

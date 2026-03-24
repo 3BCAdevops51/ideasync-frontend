@@ -7,9 +7,7 @@ export default defineConfig({
         port: 5173,
         proxy: {
             '/api': {
-                target: process.env.NODE_ENV === 'production' 
-                    ? 'https://ideasync-backend-cvdehcfqfye9brdq.centralindia-01.azurewebsites.net'
-                    : 'http://localhost:8080',
+                target: 'https://ideasync-backend-cvdehcfqfye9brdq.centralindia-01.azurewebsites.net',
                 changeOrigin: true,
                 rewrite: function (path) { return path.replace(/^\/api/, ''); }
             }
