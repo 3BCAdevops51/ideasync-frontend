@@ -42,6 +42,27 @@ h1, h2 {
   margin-left: auto;
 }
 
+/* ---------- APP ---------- */
+.app {
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+.app.light {
+  background: #ccddd9;
+  color: #111827;
+}
+
+.app.dark {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.app.ocean {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+}
+
 /* ---------- CONTAINER ---------- */
 .container {
   max-width: 1200px;
