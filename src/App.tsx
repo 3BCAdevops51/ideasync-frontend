@@ -27,8 +27,27 @@ export default function App() {
   const [description, setDescription] = useState('')
 
 
-  // ✅ ADDED: theme state
-  const [darkMode, setDarkMode] = useState(false)
+  // ✅ ADDED: theme state with 3 themes
+  type Theme = 'light' | 'dark' | 'ocean'
+  const [theme, setTheme] = useState<Theme>('light')
+
+  // ✅ ADDED: theme toggle function
+  const cycleTheme = () => {
+    const themes: Theme[] = ['light', 'dark', 'ocean']
+    const currentIndex = themes.indexOf(theme)
+    const nextIndex = (currentIndex + 1) % themes.length
+    setTheme(themes[nextIndex])
+  }
+
+  // ✅ ADDED: get theme class name
+  const getThemeClass = () => {
+    switch (theme) {
+      case 'light': return 'app light'
+      case 'dark': return 'app dark'
+      case 'ocean': return 'app ocean'
+      default: return 'app light'
+    }
+  }
 
   useEffect(() => {
     if (username && role) loadIdeas()
@@ -143,20 +162,20 @@ export default function App() {
 
   // Logged in view
   return (
-    // ✅ ADDED: wrapper class for theme
-    <div className={darkMode ? "app dark" : "app light"}>
+    // ADDED: wrapper class for theme
+    <div className={getThemeClass()}>
       <div className="header">
         <h1>IdeaSync</h1>
         <div className="user-info">
           <span>Logged in as: <b>{username}</b></span>
           <span>Role: <b>{role}</b></span>
 
-          {/* ✅ ADDED: theme toggle button */}
+          {/* ADDED: theme toggle button */}
           <button
             className="btn"
-            onClick={() => setDarkMode(!darkMode)}
+            onClick={cycleTheme}
           >
-            {darkMode ? "Light Mode" : "Dark Mode"}
+            {theme === 'light' ? ' Dark' : theme === 'dark' ? ' Ocean' : ' Light'}
           </button>
 
           <button className="btn logout" onClick={logout}>Logout</button>
