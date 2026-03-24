@@ -10,6 +10,7 @@ interface Idea {
   submittedBy: string
   status: string
 }
+//comment line adding
 
 export default function App() {
   const [username, setUsername] = useState<string | null>(localStorage.getItem('username'))
