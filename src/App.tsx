@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 interface Idea {
   id: number
@@ -18,10 +18,13 @@ export default function App() {
   const [loginPass, setLoginPass] = useState('')
   const [loginRole, setLoginRole] = useState('MEMBER')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [apiError, setApiError] = useState('')
 
   const [ideas, setIdeas] = useState<Idea[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+
 
   // ✅ ADDED: theme state
   const [darkMode, setDarkMode] = useState(false)
@@ -56,17 +59,27 @@ export default function App() {
   }
 
   async function loadIdeas() {
+    setLoading(true)
+    setApiError('')
     try {
       const res = await fetch(`${API_URL}/ideas`)
-      if (!res.ok) throw new Error('Failed to load ideas')
+      
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+      }
+      
       const data: Idea[] = await res.json()
+      
       if (role === 'MEMBER' && username) {
         setIdeas(data.filter(i => i.submittedBy === username))
       } else {
         setIdeas(data)
       }
     } catch (e) {
-      console.error(e)
+      console.error('Failed to load ideas:', e)
+      setApiError(`Failed to connect to backend: ${e instanceof Error ? e.message : 'Unknown error'}`)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -162,6 +175,22 @@ export default function App() {
         )}
 
         <h2 className="section-title">All Ideas</h2>
+
+        {/* Show loading state */}
+        {loading && <p>Loading ideas...</p>}
+        
+        {/* Show API error */}
+        {apiError && (
+          <div style={{ backgroundColor: '#ffebee', padding: '10px', marginBottom: '20px', borderRadius: '4px', border: '1px solid #f44336' }}>
+            <p style={{ color: '#c62828', margin: 0 }}>{apiError}</p>
+            <button 
+              onClick={loadIdeas} 
+              style={{ marginTop: '10px', padding: '5px 10px', backgroundColor: '#1976d2', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            >
+              Retry
+            </button>
+          </div>
+        )}
 
         <div className="card">
           <table>
